@@ -10,9 +10,9 @@ interface IDataSource<T> {
 class DataProvider(client: HttpClient? = null) {
 
     private val client = client ?: HttpClient() {
-//        install(JsonFeature) {
-//            serializer = KotlinxSerializer()
-//        }
+        install(JsonFeature) {
+            serializer = KotlinxSerializer()
+        }
     }
 
     suspend fun <T: Any> provide(source: IDataSource<T>): T = source.run { client.provide() }

@@ -33,11 +33,7 @@ kotlin {
         withJava()
     }
     js {
-        browser {
-            dceTask {
-                keep("ktor-ktor-io.\$\$importsForInline\$\$.ktor-ktor-io.io.ktor.utils.io")
-            }
-        }
+        browser {}
     }
     sourceSets {
         val commonMain by getting() {
@@ -56,7 +52,7 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val jvmMain by getting() {
+        jvm().compilations["main"].defaultSourceSet {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
 
@@ -74,17 +70,17 @@ kotlin {
                 implementation("ch.qos.logback:logback-classic:$logback_version")
             }
         }
-        val jvmTest by getting() {
+        jvm().compilations["test"].defaultSourceSet {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
             }
         }
-        val jsMain by getting() {
+
+        js().compilations["main"].defaultSourceSet  {
             dependencies {
                 implementation(kotlin("stdlib-js"))
                 implementation(npm("text-encoding", "0.7.0"))
-                implementation(npm("abort-controller"))
 
                 implementation("io.ktor:ktor-client-js:$ktor_version")
                 implementation("io.ktor:ktor-client-json-js:$ktor_version")
@@ -94,7 +90,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutines_version")
             }
         }
-        val jsTest by getting() {
+        js().compilations["test"].defaultSourceSet {
             dependencies {
                 implementation(kotlin("test-js"))
             }
