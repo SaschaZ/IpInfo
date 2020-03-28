@@ -26,7 +26,7 @@ repositories {
 val ktor_version = "1.3.1"
 val coroutines_version = "1.3.5"
 val logback_version = "1.2.3"
-val serialization_version = "0.20.0"
+val serialization_version = "0.14.0"
 
 kotlin {
     jvm() {
@@ -80,7 +80,8 @@ kotlin {
         js().compilations["main"].defaultSourceSet  {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation(npm("text-encoding", "0.7.0"))
+                implementation(npm("abort-controller"))
+                implementation(npm("text-encoding"))
 
                 implementation("io.ktor:ktor-client-js:$ktor_version")
                 implementation("io.ktor:ktor-client-json-js:$ktor_version")

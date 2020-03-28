@@ -1,6 +1,7 @@
 @file:Suppress("EXPERIMENTAL_API_USAGE")
 
 
+import dto.IpInfo
 import dto.bigdata.BigData
 import io.ktor.application.call
 import io.ktor.application.install
@@ -8,9 +9,13 @@ import io.ktor.features.CORS
 import io.ktor.html.respondHtml
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.resource
 import io.ktor.http.content.static
+import io.ktor.request.receive
+import io.ktor.response.respond
 import io.ktor.routing.get
+import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -48,6 +53,13 @@ fun main() {
                     }
                 }
             }
+
+            post {
+                val info = call.receive<IpInfo>()
+                println(info)
+                call.respond(HttpStatusCode.OK)
+            }
+
             static("/static") {
                 resource("IpInfo.js")
             }

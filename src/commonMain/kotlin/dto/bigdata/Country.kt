@@ -9,7 +9,7 @@ data class Country(
     val isoAlpha3: String,
     val m49Code: Int,
     val name: String,
-    val isoName: String,
+    val isoName: String? = null,
     val isoAdminLanguages: List<IsoAdminLanguage>,
     val unRegion: String,
     val currency: Currency,
