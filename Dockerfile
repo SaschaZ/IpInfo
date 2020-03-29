@@ -17,4 +17,4 @@ WORKDIR /project
 RUN git clone https://github.com/SaschaZ/IpInfo.git . && \
     ./gradlew assemble
 
-CMD "./gradlew run"
+CMD "build.sh"
