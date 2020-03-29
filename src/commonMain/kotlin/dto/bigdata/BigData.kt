@@ -20,9 +20,10 @@ data class BigData(
     val hazardReport: HazardReport
 ) {
     companion object : IDataSource<BigData> {
-        private const val url = "https://api.bigdatacloud.net/data/ip-geolocation-full?key=0a73bcab27714bac8c91c6e9cca5018d"
+        private fun buildUrl(ip: String? = null) =
+            "https://api.bigdatacloud.net/data/ip-geolocation-full?key=0a73bcab27714bac8c91c6e9cca5018d${ip?.let { "&ip=$it" } ?: ""}"
 
-        override suspend fun HttpClient.provide(): BigData = get(url)
+        override suspend fun HttpClient.provide(vararg args: String): BigData = get(buildUrl(args.getOrNull(0)))
     }
 }
 

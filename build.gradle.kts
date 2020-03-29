@@ -23,22 +23,23 @@ repositories {
 }
 
 
-val ktor_version = "1.3.1"
-val coroutines_version = "1.3.5"
+val ktor_version = "1.3.2"
+val coroutines_version = "1.3.4"
 val logback_version = "1.2.3"
-val serialization_version = "0.14.0"
+val serialization_version = "0.20.0"
 
 kotlin {
-    jvm() {
+    jvm {
         withJava()
     }
     js {
         browser {}
     }
     sourceSets {
-        val commonMain by getting() {
+        val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
+                implementation("io.ktor:ktor-serialization:$ktor_version")
 
                 implementation("io.ktor:ktor-client-core:$ktor_version")
                 implementation("io.ktor:ktor-client-json:$ktor_version")
@@ -46,7 +47,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version")
             }
         }
-        val commonTest by getting() {
+        val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
@@ -59,6 +60,7 @@ kotlin {
                 implementation("io.ktor:ktor-server-netty:$ktor_version")
                 implementation("io.ktor:ktor-html-builder:$ktor_version")
                 implementation("io.ktor:ktor-html-builder:$ktor_version")
+                implementation("io.ktor:ktor-serialization:$ktor_version")
 
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
                 implementation("io.ktor:ktor-client-json-jvm:$ktor_version")
