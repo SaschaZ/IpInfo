@@ -1,7 +1,6 @@
 import dto.IpIfy4Json
 import dto.IpIfy6Json
 import dto.IpInfo
-import dto.bigdata.BigData
 import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
@@ -38,7 +37,7 @@ class Client {
                 val ipv4 = ipv4Async.await().toString()
                 val ipv6 = ipv6Async.await().toString()
 
-                val bigData = client.post<BigData>(document.location?.href ?: "/") {
+                val bigData = client.post<String>(document.location?.href ?: "/") {
                     contentType(ContentType.Application.Json)
                     body = IpInfo(ipv4, ipv6)
                 }

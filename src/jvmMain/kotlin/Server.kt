@@ -111,7 +111,7 @@ fun main() {
                     ipv6 = info.ipv6
                     bigData = dataProvider.provide(BigData, info.ipv4)
                     println(session)
-                    respond(bigData!!)
+                    respond(bigData!!.country.name)
                 }
             }
 
