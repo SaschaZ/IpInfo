@@ -7,9 +7,10 @@ plugins {
     kotlin("multiplatform") version "1.3.71"
     id("kotlinx-serialization") version "1.3.71"
     application
+    id("kotlin-dce-js") version "1.3.71"
 }
 
-group = "dev,zieger"
+group = "dev.zieger"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -33,7 +34,12 @@ kotlin {
         withJava()
     }
     js {
-        browser {}
+        browser {
+            dceTask {
+                dceOptions.outputDirectory
+                keep("ktor-ktor-io.\$\$importsForInline\$\$.ktor-ktor-io.io.ktor.utils.io")
+            }
+        }
     }
     sourceSets {
         val commonMain by getting {
@@ -106,11 +112,11 @@ application {
 }
 
 val jvmProcessResources by tasks.withType(ProcessResources::class).getting {
-    val jsWebpackTaskName =
-        if (project.findProperty("production") == "true")
-            "jsBrowserProductionWebpack"
-        else
-            "jsBrowserDevelopmentWebpack"
+    val jsWebpackTaskName = "jsBrowserProductionWebpack"
+//        if (project.findProperty("production") == "true")
+//            "jsBrowserProductionWebpack"
+//        else
+//            "jsBrowserDevelopmentWebpack"
     val jsWebpackTask = tasks.withType(KotlinWebpack::class).named(jsWebpackTaskName)
     from(jsWebpackTask.map { project.files(it.destinationDirectory) })
 }

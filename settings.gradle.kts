@@ -1,4 +1,3 @@
-
 pluginManagement {
     resolutionStrategy {
         val mainKotlinVersion = "1.3.71"
@@ -11,6 +10,9 @@ pluginManagement {
             }
             if (requested.id.id == "kotlinx-serialization") {
                 useModule("org.jetbrains.kotlin:kotlin-serialization:$mainKotlinVersion")
+            }
+            if (requested.id.id == "kotlin-dce-js") {
+                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
             }
         }
     }

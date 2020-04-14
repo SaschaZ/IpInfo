@@ -111,6 +111,8 @@ fun main() {
 
             static("/static") {
                 resource("IpInfo.js")
+                resource("favicon.ico")
+//                resources("/home/user/git/IpInfo2/build/kotlin-js-min/js/main/")
             }
         }
     }.start(wait = true)
