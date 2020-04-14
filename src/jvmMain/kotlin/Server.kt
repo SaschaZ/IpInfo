@@ -8,7 +8,9 @@ import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.CORS
+import io.ktor.features.Compression
 import io.ktor.features.ContentNegotiation
+import io.ktor.features.gzip
 import io.ktor.html.respondHtml
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
@@ -52,6 +54,10 @@ fun main() {
                     )
                 )
             )
+        }
+
+        install(Compression) {
+            gzip()
         }
 
         install(Sessions) {
@@ -111,9 +117,6 @@ fun main() {
 
             static("/static") {
                 resource("IpInfo.js")
-            }
-
-            static("/") {
                 resource("favicon.ico")
             }
         }
