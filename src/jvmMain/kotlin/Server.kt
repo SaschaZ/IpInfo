@@ -18,7 +18,7 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.content.resource
 import io.ktor.http.content.static
 import io.ktor.request.receive
-import io.ktor.response.respond
+import io.ktor.response.respondRedirect
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
@@ -111,12 +111,14 @@ fun main() {
                     ipv6 = info.ipv6
                     bigData = dataProvider.provide(BigData, info.ipv4)
                     println(session)
-                    respond(bigData!!.country.name)
+                    respondRedirect("/", true)
                 }
             }
 
             static("/static") {
                 resource("IpInfo.js")
+            }
+            static("/") {
                 resource("favicon.ico")
             }
         }
